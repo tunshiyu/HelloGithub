@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			(function() {
+				//构造Map对象
+				function Map(width, height, bgcolor) {
+					this.width = width;
+					this.height = height;
+					this.bgcolor = bgcolor;
+				}
+
+				//初始化 
+				Map.prototype.init = function() {
+					var div = document.createElement('div');
+					div.style.width = this.width + 'px';
+					div.style.height = this.height + 'px';
+					div.style.backgroundColor = this.bgcolor;
+					div.style.position = 'relative';
+					div.id = 'divmap';
+					document.body.appendChild(div);
+				}
+				window.Map = Map;
+			}());
+
+			//食物
+			(function() {
+				function randomRgbColor() { //随机生成RGB颜色
+						var r = Math.floor(Math.random() * 256); //随机生成256以内r值
+						var g = Math.floor(Math.random() * 256); //随机生成256以内g值
+						var b = Math.floor(Math.random() * 256); //随机生成256以内b值
+						return `rgb(${r},${g},${b})`; //返回rgb(r,g,b)格式颜色
+					}
+				var elements=[];
+				function Food(width, height,bgcolor) {
+					this.width = width;
+					this.height = height;
+					this.bgcolor = bgcolor;
+					this.x = 0;
+					this.y = 0;
+                    this.a;
+				}
+				Food.prototype.init = function() {
+					remove();
+					var div = document.createElement('div');
+					
+					div.style.width = this.width + 'px';
+					div.style.height = this.height + 'px';
+					div.style.backgroundColor =randomRgbColor() ;
+					this.a=div.style.backgroundColor;
+					div.style.position = 'absolute';
+					div.style.borderRadius = '50%';
+					var divmap = document.getElementById('divmap');
+					this.x = parseInt(Math.random() * (divmap.offsetWidth / this.width));
+					div.style.left = (this.x) * (this.width) + 'px';
+					this.y = parseInt(Math.random() * (divmap.offsetHeight / this.height));
+					div.style.top = (this.y) * (this.height) + 'px';
+					divmap.appendChild(div);
+					elements.push(div);
+
+					
+				}
+				//删除食物
+				function remove(){
+					for (var i = 0; i < elements.length; i++) {
+						//从map中删掉食物元素(标签)
+						elements[i].parentNode.removeChild(elements[i]);
+						//清空数组
+						elements.splice(i,1);
+					}
+				}
+				
+				
+				
+				window.Food = Food;
+			}());
+
+			(function() {
+				var elements = [];
+
+				function Snake(width, height, dir) {
+					//三个参数为div宽度高度方向
+					this.width = width;
+					this.height = height;
+					this.dir = dir;
+					//将一个蛇初始化为一个数组内的三个对象，拥有x,y,bgcolor
+					this.snBody = [{
+						x: 3,
+						y: 2,
+						bgcolor: 'red'
+					}, {
+						x: 2,
+						y: 2,
+						bgcolor: 'orange'
+					}, {
+						x: 1,
+						y: 2,
+						bgcolor: 'orange'
+					}]
+				}
+				Snake.prototype.init = function() {
+					remove();
+					for(var i = 0; i < this.snBody.length; i++) {
+						var div = document.createElement('div');
+						div.style.width = this.width + 'px';
+						div.style.height = this.height + 'px';
+						div.style.dir = this.dir;
+						div.style.position = 'absolute';
+						div.style.left = this.snBody[i].x * this.width + 'px';
+						div.style.top = this.snBody[i].y * this.height + 'px';
+						div.style.backgroundColor = this.snBody[i].bgcolor;
+						var divmap = document.getElementById('divmap');
+						divmap.appendChild(div);
+						elements.push(div);
+					}
+
+				}
+				//蛇的移动的逻辑为 ，身子将索引给尾部，头部将索引给身子，循环遍历，所以头部动，后面就会类比移动
+				Snake.prototype.move = function() {
+					for(var i = this.snBody.length - 1; i > 0; i--) {
+						this.snBody[i].x = this.snBody[i - 1].x;
+						this.snBody[i].y = this.snBody[i - 1].y;
+					}
+					//头部x自加放在后面 
+					switch (this.dir){
+						case 'right': this.snBody[0].x += 1;
+							break;
+						case 'left': this.snBody[0].x -= 1;
+							break;
+						case 'top': this.snBody[0].y -= 1;
+							break;
+						case 'bottom': this.snBody[0].y += 1;
+							break;
+
+					}
+
+				}
+
+				function remove() {
+					for(var i = elements.length - 1; i >= 0; i--) {
+						//删除当前循环的元素       elements[i].parentNode  是 divMap地图
+						//从dom中删掉
+						elements[i].parentNode.removeChild(elements[i]);
+						//清空数组,每次删掉当前循环遍历的数组元素    并且初始值给i，即蛇尾开始删，因为移动后蛇尾暴露
+						elements.splice(i, 1);
+
+					}
+				}
+				window.Snake = Snake;
+			}());
+
+			(function() {
+				
+				function randomRgbColor() { //随机生成RGB颜色
+						var r = Math.floor(Math.random() * 256); //随机生成256以内r值
+						var g = Math.floor(Math.random() * 256); //随机生成256以内g值
+						var b = Math.floor(Math.random() * 256); //随机生成256以内b值
+						return `rgb(${r},${g},${b})`; //返回rgb(r,g,b)格式颜色
+					}
+				
+				function Game() {
+					this.mapG = new Map(800, 600, '#ccc');
+					this.food = new Food(20, 20,randomRgbColor());
+					this.snake = new Snake(20, 20, 'right');
+				}
+				Game.prototype.init = function() {
+					this.mapG.init();
+					this.food.init();
+					this.snake.init();
+				}
+				//规则内放游戏需要的函数，并且让其动态循环，所以用延时函数
+				Game.prototype.guize = function() {
+//					var timer=null;
+					//指针存储
+					gameThis = this;
+					timer=setInterval(function() {
+						gameThis.snake.move();
+						gameThis.snake.init();
+
+						if((gameThis.snake.snBody[0].x) < 0 || gameThis.snake.snBody[0].x >= (gameThis.mapG.width / gameThis.snake.width) || (gameThis.snake.snBody[0].y) < 0 || gameThis.snake.snBody[0].y >= gameThis.mapG.height / gameThis.snake.height) {
+							//停止定时器
+							clearInterval(timer);
+						}
+						if(gameThis.snake.snBody[0].x==gameThis.food.x && gameThis.snake.snBody[0].y==gameThis.food.y){
+//							color=gameThis.food.bgcolor;
+//							console.log(color);
+							
+							var snakeJson={
+								x:gameThis.snake.snBody[gameThis.snake.snBody.length-1].x,
+								y:gameThis.snake.snBody[gameThis.snake.snBody.length-1].y,
+								bgcolor:gameThis.food.a
+							}
+							gameThis.food.init();
+							
+							
+							gameThis.snake.snBody.push(snakeJson);
+
+						}
+						for(var i=1;i<gameThis.snake.snBody.length;i++){
+								if(gameThis.snake.snBody[0].x==gameThis.snake.snBody[i].x && gameThis.snake.snBody[0].y == gameThis.snake.snBody[i].y){
+									clearInterval(timer);
+								}
+							}
+						
+						
+
+					}, 100)
+					
+					document.onkeydown=function(e){
+							switch (e.keyCode){
+								case 37:gameThis.snake.dir='left';
+									break;
+									case 38:gameThis.snake.dir='top';
+									break;
+									case 39:gameThis.snake.dir='right';
+									break;
+									case 40:gameThis.snake.dir='bottom';
+									break;
+								
+							}
+						}
+				}
+				window.Game = Game;
+			}())
+			//创建游戏对象  初始化和规则性循环游戏
+			var Game = new Game();
+			Game.init();
+			Game.guize();
+			//			实例化地图对象
+			//			var mapG = new Map(800, 600, '#ccc');
+			//			mapG.init();
+			//			var food = new Food(20, 20);
+			//			food.init();
+			//			var snake = new Snake(20, 20,'right');
+			//			snake.init();
+			//			setInterval(function(){
+			//				//先通过move更新下一条蛇每个div的xy,然后删除数组和旧蛇，清空数组是为了让新蛇的div存入，然后更新新蛇到地图中，并且将新蛇的div存入数组                   循环起来就是  存储下条蛇位置  删除现在位置  移动到下一个位置  存储现在位置
+			//				snake.move();
+			//				snake.init();
+			//				
+			//			},100)
+		</script>
+	</body>
+
+</html>
