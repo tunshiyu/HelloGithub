@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			
+		    <div class="mui-slider">
+			  <div class="mui-slider-group mui-slider-loop">
+			  	<div class="mui-slider-item"><a href="#"><img src="img/4.jpg" /></a></div>
+			  	
+			    <div class="mui-slider-item"><a href="#"><img src="img/1.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img src="img/2.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img src="img/3.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img src="img/4.jpg" /></a></div>
+			    
+			    <div class="mui-slider-item"><a href="#"><img src="img/1.jpg" /></a></div>
+			  </div>
+			</div>
+			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:1000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		</script>
+	</body>
+
+</html>

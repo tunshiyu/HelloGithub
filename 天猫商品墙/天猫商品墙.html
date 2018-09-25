@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #list{
+            list-style: none;
+            width: 732px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: #f0f0f0;
+            padding-right: 1px;
+            padding-top: 1px;
+        }
+        #list li{
+            float: left;
+            width: 121px;
+            height: 108px;
+
+            margin-left: 1px;
+            margin-bottom: 1px;
+
+            position: relative;
+        }
+        .img-3d{
+            width: 121px;
+            height: 108px;
+            background: #fff;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .img-3d .img-back,.img-3d .img-front{
+            width: 121px;
+            height: 108px;
+            position: absolute;
+            top:0;
+            left: 0;
+            text-align: center;
+            line-height: 108px;
+        }
+        .img-3d .img-back img,.img-3d .img-front img{
+            vertical-align: middle;
+        }
+        .img-3d .img-back{
+            transform: rotateY(180deg);
+        }
+        #btn{
+            background: #fff;
+            text-align: center;
+            transition: 1s;
+        }
+        #refresh{
+            width: 28px;
+            height: 28px;
+            background-image: url("img/refresh.png");
+            background-repeat: no-repeat;
+            margin: 32px auto 0px;
+        }
+        #btn:hover{
+            background: #dd2727;
+            color: #fff;
+        }
+        #btn:hover #refresh{
+            background-image: url("img/refresh-white.png");
+        }
+
+        #list li .mask{
+            /*display: none;*/
+            opacity: 0;
+
+            transition: 3s;
+
+            position: absolute;
+            top:0;
+            left: 0;
+
+            width: 121px;
+            height: 108px;
+            background: rgba(0,0,0,.7);
+            text-align: center;
+        }
+        #list li:hover .mask{
+            /*display: block;*/
+            opacity: 1;
+        }
+
+        #list li .mask img{
+            float: right;
+            margin-top: 8px;
+            margin-right: 8px;
+        }
+        #list li .mask p{
+            margin-top: 45px;
+            color: #ffffff;
+            font-size: 12px;
+            text-align: center;
+        }
+        #list li .mask a{
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 12px;
+            background: red;
+            border-radius: 10px;
+            padding: 0px 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<ul id="list">
+    <li>
+        <!--3d翻转区域-->
+        <div class="img-3d">
+            <!--背面图-->
+            <div class="img-back">
+                <img src="img/icon1.jpg" alt="">
+            </div>
+            <!--正面图-->
+            <div class="img-front">
+                <img src="img/icon2.jpg" alt="">
+            </div>
+        </div>
+        <!--遮罩层-->
+        <div class="mask">
+            <img src="img/heart.png" alt="">
+            <p>关注人数 323.5万</p>
+            <a href="javascript:;">点击进入</a>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon3.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon4.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon5.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon6.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon7.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon8.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon9.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon10.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon11.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon12.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon13.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon14.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon15.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon16.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon17.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon18.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon19.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon20.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon21.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon22.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon23.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon24.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon25.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon26.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon27.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon28.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon29.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon30.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon31.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon32.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon33.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon34.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon35.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon36.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon37.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon38.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon39.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon40.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon41.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon42.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon43.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon44.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="img-3d">
+            <div class="img-back">
+                <img src="img/icon45.jpg"/>
+            </div>
+            <div class="img-front">
+                <img src="img/icon2.jpg"/>
+            </div>
+        </div>
+    </li>
+    <li id="btn">
+        <div id="refresh"></div>
+        <span>换一批</span>
+    </li>
+
+</ul>
+
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var btn = document.getElementById('btn');
+        var refresh = document.getElementById('refresh');
+        var img3d = document.querySelectorAll('#list li .img-3d');
+
+        var lineCount = 6;
+
+        var num = 0;
+        //避免多次点击
+        var flag=true;
+        //过渡顺序控制
+        var temp=true;
+        var a;
+        btn.onclick = function () {
+
+
+            if(flag){
+                setTimeout(function () {
+                    flag=true;
+                },1500)
+                flag=false;
+                // temp!=temp;
+                // if(temp){
+                //     temp=false;
+                // }
+
+                num++;
+                refresh.style.transform = 'rotate('+ 360*num +'deg)'
+                refresh.style.transition = '1s';
+
+                // for (var i = 0; i < img3d.length; i++) {
+                //     img3d[i].style.transform = 'rotateY('+ 180*num +'deg)';
+                //
+                //     //列数 = index % lineCount
+                //     var colNum = i % lineCount;
+                //     //行数 = index / lineCount  （向下取整）
+                //     var rowNum = Math.floor(i / lineCount);
+                //
+                //     //过渡
+                //     img3d[i].style.transition = '0.5s '+ (colNum+rowNum)*100 +'ms';
+                // };
+
+                for (var i = 0; i < img3d.length; i++) {
+                    img3d[i].style.transform = 'rotateY('+ 180*num +'deg)';
+
+                    //列数 = index % lineCount
+                    var colNum = i % lineCount;
+                    //行数 = index / lineCount  （向下取整）
+                    var rowNum = Math.floor(i / lineCount);
+                    a=temp?(colNum+rowNum):(10-colNum-rowNum);
+                    //过渡
+                    img3d[i].style.transition = '0.5s '+ a*100 +'ms';
+                };
+                temp=!temp;
+
+            }
+
+
+        };
+
+
+    };
+
+
+</script>
+</html>

@@ -1,0 +1,310 @@
+@import 'mixin/reset.less';
+//这是一个适应单位变量，所有长度宽度单位都要除以它进行rem化
+@rem: 67.5rem;
+#wrap {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    #head {
+        background-color: #232323;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        .headTop {
+            height: 135/@rem;
+            .logo {
+                width: 240/@rem;
+                height: 88/@rem;
+                float: left;
+                padding: 26/@rem 17/@rem 21/@rem 17/@rem;
+                img {
+                    width: 240/@rem;
+                    height: 88/@rem;
+                }
+            }
+            .menuBtn {
+                float: left;
+                width: 129/@rem;
+                height: 135/@rem;
+                background-image: url(../../img/menuBtn.png);
+                background-repeat: no-repeat;
+                background-size: 82/@rem 233/@rem ;
+                &.close {
+                    background-position: center 16/@rem;
+                }
+                &.open {
+                    background-position: center -120/@rem;
+                }
+            }
+            .btns {
+                padding-top: 21/@rem;
+                float: right;
+                a {
+                    float: left;
+                    width: 111/@rem;
+                    height: 78/@rem;
+                    line-height: 78/@rem;
+                    background: #690;
+                    color: #ccc;
+                    margin-right: 15/@rem;
+                    font-size: 42/@rem;
+                    text-align: center;
+                    border-radius: 8/@rem;
+                    &.searchBtn {
+                        width: 130/@rem;
+                        height: 88/@rem;
+                        line-height: 88/@rem;
+                        color: #fff;
+                        margin-right: 30/@rem;
+                        margin-top: 3/@rem;
+                        font-weight: bold;
+                        border-radius: 10/@rem;
+                    }
+                }
+            }
+        }
+        .search {
+            height: 103/@rem;
+            padding: 16/@rem;
+            input[type='text'] {
+                float: left;
+                box-sizing: border-box;
+                width: 829/@rem;
+                height: 103/@rem;
+                background-color: #999;
+                padding: 5/@rem 10/@rem;
+                border: 1/@rem solid #5A5A5A;
+                font-size: 41/@rem;
+                color: #333;
+                border-radius: 15/@rem;
+                &::-webkit-input-placeholder {
+                    color: black;
+                }
+                //input聚焦时背景颜色为白色
+                &:focus {
+                    background: #fff;
+                }
+            }
+            input[type='submit'] {
+                float: right;
+                width: 203/@rem;
+                height: 103/@rem;
+                border: none;
+                background-color: #414040;
+                color: #fff;
+                font-size: 41/@rem;
+                border-radius: 15/@rem;
+            }
+        }
+        .mask {
+            display: none;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 135/@rem;
+            padding: 10/@rem 0;
+            border-top: 1/@rem solid #6a6a6a;
+            background-color: rgba(0, 0, 0, .8);
+            li {
+                width: 22.5%;
+                height: 135/@rem;
+                line-height: 135/@rem;
+                font-size: 54/@rem;
+                text-align: center;
+                float: left;
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+    #content {
+        padding-top: 270/@rem;
+        .navWrap {
+            box-sizing: border-box;
+            height: 177/@rem;
+            padding-top: 31/@rem;
+            padding-bottom: 14/@rem;
+            .navList {
+                white-space: nowrap;
+                float: left;
+                font-size: 0;
+                li {
+                    height: 129/@rem;
+                    line-height: 129/@rem;
+                    padding: 0 38/@rem;
+                    display: inline-block;
+                    font-size: 1rem;
+                    &.active {
+                        background-color: #690;
+                        a {
+                            color: white;
+                        }
+                    }
+                }
+                a {
+                    color: #020202;
+                }
+            }
+        }
+        //无缝
+        .banWrap {
+            position: relative;
+            .banList {
+                position: absolute;
+                top: 0;
+                left: 0;
+                li {
+                    float: left;
+                    img {
+                        width: 100%;
+                        display: block;
+                    }
+                }
+            }
+            .banIcons {
+                position: absolute;
+                left: 0;
+                bottom: 8px;
+                width: 100%;
+                height: 10px;
+                line-height: 10px;
+                text-align: center;
+                &>span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 10px;
+                    height: 10px;
+                    background: gray;
+                    border-radius: 50%;
+                    &.active {
+                        background: deeppink;
+                    }
+                }
+            }
+        }
+        //tab选项卡
+        .tab {
+            width: 1046/@rem;
+            background-color: #fff;
+            margin: 0 auto;
+            overflow: hidden;
+            .tabHead {
+                height: 135/@rem;
+                line-height: 135/@rem;
+                span {
+                    float: left;
+                    font-weight: 700;
+                }
+                a {
+                    float: right;
+                    font-size: 15px;
+                    color: black;
+                }
+            }
+            .tabNav {
+                position: relative;
+                height: 105/@rem;
+                line-height: 105/@rem;
+                a {
+                    float: left;
+                    height: 105/@rem;
+                    line-height: 105/@rem;
+                    width: 120/@rem;
+                    font-size: 44/@rem;
+                    text-align: center;
+                    color: #6b6b6b;
+                }
+                .smallGreen {
+                    position: absolute;
+                    left: 0;
+                    bottom: 3px;
+                    width: 120/@rem;
+                    height: 9/@rem;
+                    background-color: greenyellow;
+                }
+            }
+            .tabWrap {
+                width: 300%;
+                overflow: hidden;
+                ul{
+                    width: 33.3333%;
+                    float: left;
+                }
+                .tabLoding {
+                    height: 101/@rem;
+                    background-image: url(../img/loading.gif);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    opacity: 0;
+                }
+                .tabList {
+                    overflow: hidden;
+                    li {
+                        float: left;
+                        box-sizing: border-box;
+                        width: 506/@rem;
+                        margin: 8/@rem;
+                        padding: 5/@rem;
+                        font-size: 40/@rem;
+                        background-color: #efefef;
+                        color: #000;
+                        span {
+                            color: black;
+                        }
+                        img {
+                            width: 100%;
+                        }
+                        .ice {
+                            overflow: hidden;
+                            .left {
+                                float: left;
+                                .icePic {
+                                    background-position: 4px 0px;
+                                }
+                            }
+                            .right {
+                                float: left;
+                                .icePic {
+                                    background-position: 6px -19px;
+                                }
+                            }
+                            .icePic {
+                                display: inline-block;
+                                vertical-align: middle;
+                                width: 20px;
+                                height: 17px;
+                                background-image: url(../img/ice.png);
+                                background-repeat: no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+#scrollBar{
+    width: 4px;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: deeppink;
+    z-index: 2000;
+}
+
+//底部标识:
+//  宽: 120;
+//         高: 9px;
+//         背景颜色: #6f900d;
+//  
+//主体内容元素:(li)
+//  box-sizing: border-box;
+//  宽:506
+//  外边距:8
+//  内边距:5
+//  字体大小:40
+//  背景颜色:#efefef
+//  字体颜色:#000

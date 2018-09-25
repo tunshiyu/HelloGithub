@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			img {
+				display: block;
+			}
+			
+			#wrap {
+				position: relative;
+			}
+			
+			#wrap .list {
+				/*width: 500%;*/
+				/*overflow: hidden;*/
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#wrap .list li {
+				float: left;
+				/*width: 20%;*/
+			}
+			
+			#wrap .list li img {
+				width: 100%;
+			}
+			
+			#wrap .icons {
+				width: 100%;
+				height: 10px;
+				position: absolute;
+				left: 0;
+				bottom: 10px;
+				line-height: 10px;
+				text-align: center;
+			}
+			
+			#wrap .icons span {
+				display: inline-block;
+				vertical-align: middle;
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: grey;
+			}
+			
+			#wrap .icons span.active {
+				background-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<section id="wrap">
+			<ul class="list">
+				<li>
+					<a href="javascript:;"><img src="img/1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/3.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/4.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/5.jpg" alt="" /></a>
+				</li>
+			</ul>
+			<div class="icons">
+				<span class="active"></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</section>
+	</body>
+	<script src="JS/transform.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			//获取元素
+			var wrap = document.getElementById('wrap');
+			var list = document.querySelector('#wrap .list');
+			//十张图 5+5
+			list.innerHTML += list.innerHTML;
+			var lis = document.querySelectorAll('#wrap .list li');
+			var spanNodes = document.querySelectorAll('#wrap .icons span');
+
+			var eleX = 0;
+			var disX = 0;
+			var x = 0;
+			var now = 0;
+
+			//布局样式
+			//首先将list的宽度和li的宽度通过img个数动态设置
+			var styleNode = document.createElement('style');
+			styleNode.innerHTML = '#wrap{height:' + lis[0].offsetHeight + 'px;}';
+			styleNode.innerHTML += '#wrap .list{width:' + lis.length + '00%;}';
+			styleNode.innerHTML += '#wrap .list li{width: ' + 100 / lis.length + '%;}';
+			document.head.appendChild(styleNode);
+
+			//触摸事件
+			//清除默认行为
+			document.addEventListener('touchstart', function(event) {
+				event.preventDefault();
+			})
+			var startX = 0;
+			//			var eleX = 0;
+
+			//开始点击
+			document.addEventListener('touchstart', function(e) {
+				var touch = e.changedTouches[0];
+				startX = touch.clientX;
+				//无缝逻辑 0-5  9-4
+				if(now == 0) {
+					now = 5;
+				}
+				if(now == 9) {
+					now = 4;
+				}
+				//				list.style.transition='0.5s';
+				transformCss(list, 'translateX', -now * lis[0].offsetWidth)
+				//				eleX=x;
+				list.style.transition = 'none';
+				//读取              
+				eleX = transformCss(list, 'translateX')
+			});
+
+			//开始滑屏
+			document.addEventListener('touchmove', function(e) {
+				var touch = e.changedTouches[0];
+				var endX = touch.clientX;
+				disX = endX - startX;
+
+				//			//边缘检测
+				//			var ceshi=eleX+disX;
+				//			if(ceshi>0){
+				//				ceshi=0;
+				//			}else if(ceshi<document.documentElement.clientWidth-list.offsetWidth){
+				//				ceshi=document.documentElement.clientWidth-list.offsetWidth;
+				//			}
+
+				//				list.style.left = eleX + disX + 'px';
+				//2d变换实现
+				//              x = eleX + disX;
+				//              list.style.transform='translateX('+(eleX + disX)+'px)';
+				transformCss(list, 'translateX', eleX + disX)
+
+			});
+
+			//滑屏结束
+			document.addEventListener('touchend', function(e) {
+				var touch = e.changedTouches[0];
+
+				now = Math.round(-(eleX + disX) / document.documentElement.clientWidth);
+				console.log(eleX + disX)
+				//边缘检测
+
+				if(now < 0) {
+					now = 0;
+				} else if(now > lis.length - 1) {
+					now = lis.length - 1;
+				}
+
+				//				list.style.left = -now * lis[0].offsetWidth + 'px';
+				//				list.style.transform = 'translateX('+x+'px)';
+				list.style.transition = '1s';
+				transformCss(list, 'translateX', -now * lis[0].offsetWidth)
+
+				//小圆点逻辑
+				for(var i = 0; i < spanNodes.length; i++) {
+					spanNodes[i].className = '';
+					spanNodes[i].index = i;
+					//					spanNodes[i].onclick = function() {
+					//						for(var i = 0; i < spanNodes.length; i++) {
+					//							spanNodes[i].className = '';
+					//						}
+					//						now = this.index;
+					//						transformCss(list, 'translateX', -now * lis[0].offsetWidth)
+					//						spanNodes[now].className = 'active';
+					//					}
+				}
+				//因为十张图，取余做小圆点index设置
+				spanNodes[now % 5].className = 'active';
+
+			})
+			move();
+
+			function move() {
+				setInterval(function() {
+					if(now == 9) {
+						now = 4;
+						list.style.transition = 'none';
+						transformCss(list, 'translateX', -now * lis[0].offsetWidth)
+					}
+					now++;
+					
+					//给他俩一起加一个30ms延迟，防止直接对上面的none进行覆盖
+					setTimeout(function(){					
+						list.style.transition = '1s';
+						transformCss(list, 'translateX', -now * lis[0].offsetWidth)
+					},30)
+					
+					//小圆点逻辑
+					for(var i = 0; i < spanNodes.length; i++) {
+						spanNodes[i].className = '';
+
+					}
+					//因为十张图，取余做小圆点index设置
+					spanNodes[now % 5].className = 'active';
+				}, 2000)
+
+			}
+
+		}
+	</script>
+
+</html>

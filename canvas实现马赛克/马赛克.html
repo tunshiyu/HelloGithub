@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				background-color: grey;
+				text-align: center;
+			}
+			
+			#myCanvas {
+				background-color: rgba(250, 0, 0, 0.3);
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="myCanvas" width="500" height="400"></canvas>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			var myCanvas = document.getElementById('myCanvas');
+			var painting = myCanvas.getContext('2d');
+              //生成一个图片节点
+			var imgNode = new Image();
+			imgNode.src = '1.jpg';
+			//调用函数
+			drawImg(imgNode);
+
+			function drawImg(imgNode) {
+				//图片加载后执行马赛克实现语句：5个一组取到随机像素赋给新图里的五个一组
+				imgNode.onload = function() {
+					painting.drawImage(imgNode, 0, 0, 250, 400);
+
+					var size = 5;
+					//获取老图所有像素点
+					var oldImg = painting.getImageData(0, 0, 250, 400)
+					//创建新图像素对象
+					var newImg = painting.createImageData(250, 400)
+
+					for(var i = 0; i < oldImg.width; i++) {
+						for(var j = 0; j < oldImg.height; j++) {
+							//从5*5中获取单个像素信息
+							var color = getPxInfo(oldImg, Math.floor(i * size + Math.random() * size), Math.floor(j * size + Math.random() * size))
+
+							//写入单个像素信息
+							for(var a = 0; a < size; a++) {
+								for(var b = 0; b < size; b++) {
+									//                            (a,b)
+									setPxInfo(newImg, i * size + a, j * size + b, color);
+								}
+							}
+
+						}
+
+					}
+					painting.putImageData(newImg, 250, 0)
+				}
+			}
+
+			//读取单个像素信息
+			function getPxInfo(imgDate, x, y) {
+				var colorArr = [];
+
+				var width = imgDate.width;
+
+				colorArr[0] = imgDate.data[(width * y + x) * 4 + 0]
+				colorArr[1] = imgDate.data[(width * y + x) * 4 + 1]
+				colorArr[2] = imgDate.data[(width * y + x) * 4 + 2]
+				colorArr[3] = imgDate.data[(width * y + x) * 4 + 3]
+
+				return colorArr;
+
+			}
+
+			//写入单个像素信息
+			function setPxInfo(imgDate, x, y, colors) {
+				//（x,y） 之前有多少个像素点  ==  width*y + x
+				var width = imgDate.width;
+
+				imgDate.data[(width * y + x) * 4 + 0] = colors[0];
+				imgDate.data[(width * y + x) * 4 + 1] = colors[1];
+				imgDate.data[(width * y + x) * 4 + 2] = colors[2];
+				imgDate.data[(width * y + x) * 4 + 3] = colors[3];
+
+			}
+
+		}
+	</script>
+
+</html>

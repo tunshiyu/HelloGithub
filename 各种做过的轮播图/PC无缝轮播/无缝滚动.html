@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			.box {
+				width: 900px;
+				height: 350px;
+				margin: 100px auto;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.box ul {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 5400px;
+			}
+			
+			.box ul li {
+				float: left;
+			}
+			
+			.box ol {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+			}
+			
+			.box ol li {
+				float: left;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				border: 1px solid #fff;
+				background: #333;
+				color: #999;
+				text-align: center;
+				margin-left: 10px;
+				cursor: pointer;
+				border-radius: 50%;
+			}
+			
+			.box ol li.current {
+				border-color: #f60;
+				color: #f60;
+			}
+			
+			.box .leftBtn,
+			.box .rightBtn {
+				width: 40px;
+				height: 100px;
+				background: url(img/index.png) 0 0;
+				position: absolute;
+				top: 50%;
+				margin-top: -50px;
+			}
+			
+			.box .leftBtn {
+				left: 0;
+			}
+			
+			.box .rightBtn {
+				right: 0;
+				background-position: -50px 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box" id="box">
+			<ul id="ulList">
+				<li><img src="img/01.jpg" height="350" width="900" alt="" /></li>
+				<li><img src="img/02.jpg" height="350" width="900" alt="" /></li>
+				<li><img src="img/03.jpg" height="350" width="900" alt="" /></li>
+				<li><img src="img/04.jpg" height="350" width="900" alt="" /></li>
+				<li><img src="img/05.jpg" height="350" width="900" alt="" /></li>
+			</ul>
+			<ol id="olList">
+				<li class="current">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ol>
+			<a href="##" class="leftBtn" id="leftBtn"></a>
+			<a href="##" class="rightBtn" id="rightBtn"></a>
+		</div>
+		<script src="myFn.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var rightBtn = document.getElementById('rightBtn');
+			var leftBtn = document.getElementById('leftBtn');
+			
+			//ollist:小圆点   ullist：图片条
+			var olList = document.getElementById('olList');
+			var ulList = document.getElementById('ulList');
+			
+			//小圆点计数器     图片计数器
+			var olNum = 0;
+			var ulNum = 0;
+
+			var clone = ulList.children[0].cloneNode(true);
+			ulList.appendChild(clone);
+
+			//olnum,ulnum通过自加巧妙的实现索引，点击一次向右，索引+1，初始索引为0，点击一次，ullist.style.left=-900*1；
+
+			rightBtn.onclick = rightMove;
+
+			function rightMove() {
+				if(ulNum == 5) {
+					ulList.style.left = 0;
+					ulNum = 1;
+				} else {
+					ulNum++;
+				}
+				if(olNum == 4) {
+					olNum = 0;
+					//	ulList.style.left=0+'px';
+				} else {
+					olNum++;
+				}
+
+				for(var i = 0; i < olList.children.length; i++) {
+					olList.children[i].className = '';
+				}
+				olList.children[olNum].className = 'current';
+				animate(ulList, (-900 * ulNum));
+			}
+            
+            //鼠标移入移出控制暂停和自动逻辑
+			function setIntervalFn() {
+
+				timer = setInterval(rightMove, 3000);
+			}
+			setIntervalFn();
+
+			box.onmouseover = function() {
+				clearInterval(timer);
+			}
+			box.onmouseout = function() {
+				setIntervalFn();
+			}
+
+			leftBtn.onclick = function() {
+				if(olNum == 0) {
+					olNum = 4;
+				} else {
+					olNum--;
+				}
+				if(ulNum == 0) {
+					ulNum = 4;
+					ulList.style.left = -4500 + 'px';
+				} else {
+					ulNum--;
+				}
+
+				for(var i = 0; i < olList.children.length; i++) {
+					olList.children[i].className = '';
+				}
+				olList.children[olNum].className = 'current';
+				animate(ulList, (-900 * ulNum));
+			}
+              
+              //点击小圆点逻辑
+			for(var j = 0; j < olList.children.length; j++) {
+				olList.children[j].index = j;
+				olList.children[j].onclick = function() {
+					//排他和赋予样式类名
+					for(var k = 0; k < olList.children.length; k++) {
+						olList.children[k].className = '';
+					}
+					this.className = 'current';
+					var num = this.index;
+					animate(ulList, (-900 * num));
+					
+					//保持点击索引与计数器的统一
+					olNum = this.index;
+					ulNum = this.index;
+				}
+			}
+		</script>
+	</body>
+
+</html>

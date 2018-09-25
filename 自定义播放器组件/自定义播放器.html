@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+			}
+			
+			#videoWrap {
+				height: 100%;
+				width: 100%;
+				background-color: #383838;
+			}
+			
+			#myVideo {
+				display: block;
+			}
+			
+			#footer {
+				width: 100%;
+				height: 25px;
+				background-color: #2A2A2A;
+				position: relative;
+			}
+			/*按钮组*/
+			
+			#footer .btns {
+				width: 55px;
+				height: 25px;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#footer .btns .start,
+			#footer .btns .end {
+				width: 9px;
+				height: 11px;
+				background: url(icon.png) no-repeat;
+			}
+			
+			#footer .btns .start {
+				background-position: 0 -22px;
+			}
+			
+			#footer .btns .start.active {
+				background-position: 0 -10px;
+			}
+			
+			#footer .btns .end {
+				background-position: 0 1px;
+			}
+			/*其他*/
+			
+			#footer .others {
+				width: 230px;
+				height: 25px;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+			
+			#footer .others>div {
+				float: left;
+			}
+			
+			#footer .others .time {
+				width: 120px;
+				font-size: 12px;
+				color: white;
+				text-align: center;
+				line-height: 25px;
+			}
+			
+			#footer .others .volume {
+				width: 80px;
+				height: 25px;
+			}
+			
+			#footer .others .volume .isSonud {
+				width: 20px;
+				height: 25px;
+				position: relative;
+				float: left;
+			}
+			
+			#footer .others .volume .isSonud>span {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				margin: auto;
+				width: 12px;
+				height: 12px;
+				background: url(icon.png) no-repeat;
+				background-position: 0 -34px;
+			}
+			
+			#footer .others .volume .isSonud>span.active {
+				background-position: 0 -46px;
+			}
+			
+			#footer .others .volume .progress {
+				width: 60px;
+				height: 25px;
+				float: left;
+				margin: 0;
+			}
+			
+			#footer .others .volume .progress .smallWhite {
+				width: 9px;
+				height: 7px;
+				background-color: white;
+				border-radius: 2px;
+				position: absolute;
+				top: -2px;
+				left: 0;
+			}
+			
+			#footer .others .volume .progress .smallPink {
+				height: 3px;
+				width: 0px;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin-top: auto;
+				margin-bottom: auto;
+				background-color: deeppink;
+			}
+			
+			#footer .others .volume .progress .smallGrey {
+				height: 3px;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin-top: auto;
+				margin-bottom: auto;
+				background-color: #737373;
+			}
+			
+			#footer .progress {
+				height: 25px;
+				margin: 0 230px 0 55px;
+				position: relative;
+			}
+			
+			#footer .progress .smallGrey {
+				height: 3px;
+				width: 100%;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin-top: auto;
+				margin-bottom: auto;
+				background-color: #737373;
+			}
+			
+			#footer .progress .smallWhite {
+				width: 9px;
+				height: 7px;
+				background-color: white;
+				border-radius: 2px;
+				position: absolute;
+				top: -2px;
+				left: 0;
+			}
+			
+			#footer .progress .smallPink {
+				height: 3px;
+				width: 0px;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin-top: auto;
+				margin-bottom: auto;
+				background-color: deeppink;
+			}
+			
+			#footer .full {
+				width: 30px;
+				height: 25px;
+				text-align: center;
+				line-height: 25px;
+			}
+			
+			#footer .full>span {
+				display: inline-block;
+				margin: 7px auto;
+				width: 11px;
+				height: 11px;
+				background: url(icon.png) no-repeat;
+				background-position: 0 -58px;
+			}
+			
+			#footer .full>span.active {
+				background-position: 0 -70px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<section id="videoWrap">
+			<!--视频模块-->
+			<video src="http://img.ksbbs.com/asset/Mon_1703/eb048d7839442d0.mp4" id="myVideo" id="myVideo"></video>
+			<!--底部功能模块-->
+			<div id="footer">
+				<!--按键组-->
+				<div class="btns">
+					<!--开始    暂停通过对span添加active类从而更改雪碧图-->
+					<div class="start"></div>
+					<!--结束按钮-->
+					<div class="end"></div>
+				</div>
+				<!--进度条-->
+				<div class="progress">
+					<!--小灰  未播放进度-->
+					<div class="smallGrey">
+						<!--小白块 -->
+						<div class="smallWhite"></div>
+					</div>
+					<!--小粉 已播放进度-->
+					<div class="smallPink"></div>
+				</div>
+				<!--右侧  时间，声音插件，全屏插件-->
+				<div class="others">
+					<div class="time">
+						<span>00:00:00</span>/
+						<span>00:00:00</span>
+					</div>
+					<!--声音插件-->
+					<div class="volume">
+						<!--是否静音-->
+						<div class="isSonud">
+							<span></span>
+						</div>
+						<!--声音条-->
+						<div class="progress">
+							<div class="smallGrey">
+								<div class="smallWhite"></div>
+							</div>
+							<div class="smallPink"></div>
+						</div>
+					</div>
+					<div class="full">
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<script src="js/drag.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var myVideo = document.querySelector('#myVideo');
+			var footer = document.getElementById('footer');
+			var start = document.querySelector('#footer .btns .start');
+			var end = document.querySelector('#footer .btns .end');
+			var isSound = document.querySelector('#footer .others .volume .isSonud>span');
+			var time = document.querySelectorAll('#footer .others .time span');
+			var full = document.querySelector('#footer .full>span');
+			var timer = null;
+			var isFullScreen = false;
+
+			var progress = document.querySelectorAll('#footer .progress');
+			var smallGrey = document.querySelectorAll('#footer .progress .smallGrey');
+			var smallWhite = document.querySelectorAll('#footer .progress .smallGrey .smallWhite')
+			var smallPink = document.querySelectorAll('#footer .progress .smallPink');
+			var volume = 1;
+			myVideo.width = document.documentElement.clientWidth;
+			myVideo.height = document.documentElement.clientHeight - footer.offsetHeight;
+              
+             //当游览器大小改变，视频自适应
+			window.onresize = function() {
+				myVideo.width = document.documentElement.clientWidth;
+				myVideo.height = document.documentElement.clientHeight - footer.offsetHeight;
+			}
+			//拖动逻辑    通过小粉left可知当前时间
+			//总时间
+			myVideo.onloadedmetadata = function() {
+				time[1].innerHTML = changeTime(myVideo.duration);
+			};
+			
+            //音量样式初始化   小白块和粉色条 达到最大化样式
+				smallPink[1].style.width = smallGrey[1].offsetWidth - smallWhite[1].offsetWidth + 'px';
+				smallWhite[1].style.left = (smallGrey[1].offsetWidth - smallWhite[1].offsetWidth) + 'px';
+				
+				
+            //所有操作逻辑封装
+			function dragWhite() {
+				//点击开始按钮    
+				start.onclick = function() {
+					if(myVideo.paused) {
+						myVideo.play();
+						addClass(start, 'active');
+						timer = setInterval(move, 50);
+
+					} else {
+						myVideo.pause()
+						removeClass(start, 'active')
+						clearInterval(timer);
+					}
+				} 
+				//点击结束按钮     样式  暂停  停止小白块   更新视频当前时间
+				end.onclick = function() {
+					removeClass(start, 'active');
+					smallPink[0].style.width = smallWhite[0].style.left = 0+'px';
+					myVideo.pause();
+					clearInterval(timer);					
+					myVideo.currentTime = 0
+				}
+
+				//进度条点击
+				progress[0].onclick = function(e) {
+					addClass(start, 'active');
+                    //小白块和粉色条跟随
+					smallPink[0].style.width = smallWhite[0].style.left = e.clientX - progress[0].offsetLeft + 'px';
+					//视频当前时间更新
+					myVideo.currentTime = smallWhite[0].offsetLeft / (smallGrey[0].offsetWidth - smallWhite[0].offsetWidth) * myVideo.duration;
+					//播放并让小白块走起
+					myVideo.play();
+					timer = setInterval(move, 50);
+				}
+                 
+                //音量条点击
+				progress[1].onclick=function(e){
+					//小白块和粉色条跟随
+					smallPink[1].style.width = smallWhite[1].style.left = e.clientX - progress[1].offsetLeft-progress[0].offsetWidth-progress[0].offsetLeft + 'px';
+					myVideo.volume = smallWhite[1].offsetLeft / (smallGrey[1].offsetWidth - smallWhite[1].offsetWidth);
+					volume = myVideo.volume;
+					//当音量=0时触发静音事件
+						if(myVideo.volume == 0) {
+							myVideo.muted = true;
+							addClass(isSound, 'active');
+						} else {
+							myVideo.muted = false;
+							removeClass(isSound, 'active');
+						}
+				}
+
+
+				//拖动逻辑    此处我们对进度条小白块进行拖动，并通过callback1对象内的move函数完成对当前时间的更新
+				var callback1 = {
+					move: function() {
+						//小粉条跟随
+						smallPink[0].style.width=smallWhite.offsetLeft+'px';
+						//计算当前时间并更新
+						myVideo.currentTime = smallWhite[0].offsetLeft / (smallGrey[0].offsetWidth - smallWhite[0].offsetWidth) * myVideo.duration;
+						time[0].innerHTML = changeTime(myVideo.currentTime);
+					}
+				}
+				
+																			
+               //拖动逻辑    此处我们对音量小白块进行拖动，并通过callback2对象内的move函数完成对当前时间的更新
+				var callback2 = {
+					move: function() {
+						smallPink[1].style.width = smallWhite[1].offsetLeft + 'px';
+						myVideo.volume = smallWhite[1].offsetLeft / (smallGrey[1].offsetWidth - smallWhite[1].offsetWidth);
+						//存储声音变量到全局环境
+						volume = myVideo.volume;
+						//当音量=0时触发静音事件
+						if(myVideo.volume == 0) {
+							myVideo.muted = true;
+							addClass(isSound, 'active');
+						} else {
+							myVideo.muted = false;
+							removeClass(isSound, 'active');
+						}
+					}
+				}				
+				$.drag(smallWhite[0], callback1);			
+				$.drag(smallWhite[1], callback2);
+				
+				
+				
+				//是否静音按钮
+				isSound.onclick = function() {
+					//开始时不静音  myVideo.muted=false  ==>true  执行静音语句  小白小粉归零
+					if(!myVideo.muted) {
+						myVideo.muted = true;
+						addClass(isSound, 'active');
+						smallWhite[1].style.left = smallPink[1].style.width = 0 + 'px';
+					} else {
+						myVideo.muted = false;
+						removeClass(isSound, 'active');
+						//拿到全局声音变量，使静音取消具有记录功能
+						smallWhite[1].style.left = smallPink[1].style.width = volume * (smallGrey[1].offsetWidth - smallWhite[1].offsetWidth) + 'px';
+					}
+
+				}
+			}
+			dragWhite();
+
+			//全屏逻辑
+			full.onclick = function() {
+				if(isFullScreen) {
+					removeClass(full, 'active')
+					isFullScreen = false
+					if(document.exitFullscreen) {
+						document.exitFullscreen();
+					} else if(document.mozCancelFullScreen) {
+						document.mozCancelFullScreen();
+					} else if(document.webkitCancelFullScreen) {
+						document.webkitCancelFullScreen();
+					} else if(document.msExitFullscreen) {
+						document.msExitFullscreen();
+					}
+				} else {
+					addClass(full, 'active')
+					isFullScreen = true
+					var docElm = document.documentElement;
+					//W3C  
+					if(docElm.requestFullscreen) {
+						docElm.requestFullscreen();
+					}
+					//FireFox  
+					else if(docElm.mozRequestFullScreen) {
+						docElm.mozRequestFullScreen();
+					}
+					//Chrome等  
+					else if(docElm.webkitRequestFullScreen) {
+						docElm.webkitRequestFullScreen();
+					}
+					//IE11
+					else if(docElm.msRequestFullscreen) {
+						docElm.msRequestFullscreen();
+					}
+				}
+			}
+
+			//进度条移动
+			function move() {
+				smallWhite[0].style.left = smallPink[0].style.width = myVideo.currentTime / myVideo.duration * (smallGrey[0].offsetWidth - smallWhite[0].offsetWidth) + 'px';
+				time[0].innerHTML = changeTime(myVideo.currentTime);
+			}
+
+			//公共函数
+			//时间格式
+			function changeTime(time) {
+				time = parseInt(time);
+
+				var h = toZero(Math.floor(time / 3600));
+				var m = toZero(Math.floor(time % 3600 / 60));
+				var s = toZero(Math.floor(time % 60));;
+
+				return h + ":" + m + ":" + s;
+			}
+
+			function toZero(mun) {
+				if(mun < 10) {
+					mun = "0" + mun;
+				} else {
+					mun = "" + mun;
+				}
+				return mun;
+			}
+
+			//class操作函数
+			function addClass(node, className) {
+				var reg = new RegExp("\\b" + className + "\\b");
+				if(!reg.test(node.className)) {
+					node.className += (" " + className);
+				}
+			}
+
+			function removeClass(node, className) {
+				if(node.className) {
+					var reg = new RegExp("\\b" + className + "\\b");
+					var classes = node.className;
+					node.className = classes.replace(reg, "");
+					if(/^\s*$/g.test(node.className)) {
+						node.removeAttribute("class");
+					}
+				} else {
+					node.removeAttribute("class");
+				}
+			}
+		}
+	</script>
+
+</html>

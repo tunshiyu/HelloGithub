@@ -1,0 +1,310 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+img {
+  display: block;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input {
+  outline: none;
+}
+#wrap {
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+}
+#wrap #head {
+  background-color: #232323;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+#wrap #head .headTop {
+  height: 2rem;
+}
+#wrap #head .headTop .logo {
+  width: 3.55555556rem;
+  height: 1.3037037rem;
+  float: left;
+  padding: 0.38518519rem 0.25185185rem 0.31111111rem 0.25185185rem;
+}
+#wrap #head .headTop .logo img {
+  width: 3.55555556rem;
+  height: 1.3037037rem;
+}
+#wrap #head .headTop .menuBtn {
+  float: left;
+  width: 1.91111111rem;
+  height: 2rem;
+  background-image: url(../../img/menuBtn.png);
+  background-repeat: no-repeat;
+  background-size: 1.21481481rem 3.45185185rem;
+}
+#wrap #head .headTop .menuBtn.close {
+  background-position: center 0.23703704rem;
+}
+#wrap #head .headTop .menuBtn.open {
+  background-position: center -1.77777778rem;
+}
+#wrap #head .headTop .btns {
+  padding-top: 0.31111111rem;
+  float: right;
+}
+#wrap #head .headTop .btns a {
+  float: left;
+  width: 1.64444444rem;
+  height: 1.15555556rem;
+  line-height: 1.15555556rem;
+  background: #690;
+  color: #ccc;
+  margin-right: 0.22222222rem;
+  font-size: 0.62222222rem;
+  text-align: center;
+  border-radius: 0.11851852rem;
+}
+#wrap #head .headTop .btns a.searchBtn {
+  width: 1.92592593rem;
+  height: 1.3037037rem;
+  line-height: 1.3037037rem;
+  color: #fff;
+  margin-right: 0.44444444rem;
+  margin-top: 0.04444444rem;
+  font-weight: bold;
+  border-radius: 0.14814815rem;
+}
+#wrap #head .search {
+  height: 1.52592593rem;
+  padding: 0.23703704rem;
+}
+#wrap #head .search input[type='text'] {
+  float: left;
+  box-sizing: border-box;
+  width: 12.28148148rem;
+  height: 1.52592593rem;
+  background-color: #999;
+  padding: 0.07407407rem 0.14814815rem;
+  border: 0.01481481rem solid #5a5a5a;
+  font-size: 0.60740741rem;
+  color: #333;
+  border-radius: 0.22222222rem;
+}
+#wrap #head .search input[type='text']::-webkit-input-placeholder {
+  color: black;
+}
+#wrap #head .search input[type='text']:focus {
+  background: #fff;
+}
+#wrap #head .search input[type='submit'] {
+  float: right;
+  width: 3.00740741rem;
+  height: 1.52592593rem;
+  border: none;
+  background-color: #414040;
+  color: #fff;
+  font-size: 0.60740741rem;
+  border-radius: 0.22222222rem;
+}
+#wrap #head .mask {
+  display: none;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 2rem;
+  padding: 0.14814815rem 0;
+  border-top: 0.01481481rem solid #6a6a6a;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+#wrap #head .mask li {
+  width: 22.5%;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.8rem;
+  text-align: center;
+  float: left;
+}
+#wrap #head .mask li a {
+  color: #fff;
+}
+#wrap #content {
+  padding-top: 4rem;
+}
+#wrap #content .navWrap {
+  box-sizing: border-box;
+  height: 2.62222222rem;
+  padding-top: 0.45925926rem;
+  padding-bottom: 0.20740741rem;
+}
+#wrap #content .navWrap .navList {
+  white-space: nowrap;
+  float: left;
+  font-size: 0;
+}
+#wrap #content .navWrap .navList li {
+  height: 1.91111111rem;
+  line-height: 1.91111111rem;
+  padding: 0 0.56296296rem;
+  display: inline-block;
+  font-size: 1rem;
+}
+#wrap #content .navWrap .navList li.active {
+  background-color: #690;
+}
+#wrap #content .navWrap .navList li.active a {
+  color: white;
+}
+#wrap #content .navWrap .navList a {
+  color: #020202;
+}
+#wrap #content .banWrap {
+  position: relative;
+}
+#wrap #content .banWrap .banList {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#wrap #content .banWrap .banList li {
+  float: left;
+}
+#wrap #content .banWrap .banList li img {
+  width: 100%;
+  display: block;
+}
+#wrap #content .banWrap .banIcons {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  width: 100%;
+  height: 10px;
+  line-height: 10px;
+  text-align: center;
+}
+#wrap #content .banWrap .banIcons > span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+  background: gray;
+  border-radius: 50%;
+}
+#wrap #content .banWrap .banIcons > span.active {
+  background: deeppink;
+}
+#wrap #content .tab {
+  width: 15.4962963rem;
+  background-color: #fff;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#wrap #content .tab .tabHead {
+  height: 2rem;
+  line-height: 2rem;
+}
+#wrap #content .tab .tabHead span {
+  float: left;
+  font-weight: 700;
+}
+#wrap #content .tab .tabHead a {
+  float: right;
+  font-size: 15px;
+  color: black;
+}
+#wrap #content .tab .tabNav {
+  position: relative;
+  height: 1.55555556rem;
+  line-height: 1.55555556rem;
+}
+#wrap #content .tab .tabNav a {
+  float: left;
+  height: 1.55555556rem;
+  line-height: 1.55555556rem;
+  width: 1.77777778rem;
+  font-size: 0.65185185rem;
+  text-align: center;
+  color: #6b6b6b;
+}
+#wrap #content .tab .tabNav .smallGreen {
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 1.77777778rem;
+  height: 0.13333333rem;
+  background-color: greenyellow;
+}
+#wrap #content .tab .tabWrap {
+  width: 300%;
+  overflow: hidden;
+}
+#wrap #content .tab .tabWrap ul {
+  width: 33.3333%;
+  float: left;
+}
+#wrap #content .tab .tabWrap .tabLoding {
+  height: 1.4962963rem;
+  background-image: url(../img/loading.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+}
+#wrap #content .tab .tabWrap .tabList {
+  overflow: hidden;
+}
+#wrap #content .tab .tabWrap .tabList li {
+  float: left;
+  box-sizing: border-box;
+  width: 7.4962963rem;
+  margin: 0.11851852rem;
+  padding: 0.07407407rem;
+  font-size: 0.59259259rem;
+  background-color: #efefef;
+  color: #000;
+}
+#wrap #content .tab .tabWrap .tabList li span {
+  color: black;
+}
+#wrap #content .tab .tabWrap .tabList li img {
+  width: 100%;
+}
+#wrap #content .tab .tabWrap .tabList li .ice {
+  overflow: hidden;
+}
+#wrap #content .tab .tabWrap .tabList li .ice .left {
+  float: left;
+}
+#wrap #content .tab .tabWrap .tabList li .ice .left .icePic {
+  background-position: 4px 0px;
+}
+#wrap #content .tab .tabWrap .tabList li .ice .right {
+  float: left;
+}
+#wrap #content .tab .tabWrap .tabList li .ice .right .icePic {
+  background-position: 6px -19px;
+}
+#wrap #content .tab .tabWrap .tabList li .ice .icePic {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 17px;
+  background-image: url(../img/ice.png);
+  background-repeat: no-repeat;
+}
+#scrollBar {
+  width: 4px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: deeppink;
+  z-index: 2000;
+}
